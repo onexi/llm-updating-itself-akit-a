@@ -1,5 +1,11 @@
-const execute = async ({ num1, num2 }) => {
-    return { result: num1 + num2 };
+const execute = async (numbers) => {
+    if (Array.isArray(numbers)) {
+        return { result: numbers.reduce((a, b) => a + b, 0) };
+    } else if (typeof numbers === 'object') {
+        return { result: Object.values(numbers).reduce((a, b) => a + b, 0) };
+    } else {
+        throw new Error('Invalid input: expected an array or object of numbers');
+    }
 };
 
 const details = {
@@ -9,19 +15,18 @@ const details = {
         parameters: {
             type: 'object',
             properties: {
-                num1: {
-                    type: 'number',
-                    description: 'First number to add'
-                },
-                num2: {
-                    type: 'number',
-                    description: 'Second number to add'
+                numbers: {
+                    type: 'array',
+                    items: {
+                        type: 'number'
+                    },
+                    description: 'An array of numbers to add'
                 }
             },
-            required: ['num1', 'num2']
+            required: ['numbers']
         },
     },
-    description: 'This function adds two numbers and returns the result.'
+    description: 'This function adds an array of numbers and returns the result.'
 };
 
 export { execute, details };

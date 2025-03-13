@@ -59,9 +59,18 @@ app.post('/execute-function', async (req, res) => {
 
     try {
         // Parse parameters if they are sent as a string
-        const parsedParams = typeof parameters === 'string' 
-            ? JSON.parse(parameters) 
-            : parameters;
+        let parsedParams;
+        if (typeof parameters === 'string') {
+            // Try to parse as JSON
+            try {
+                parsedParams = JSON.parse(parameters);
+            } catch (e) {
+                // If parsing fails, split the string into an array
+                parsedParams = parameters.split(',').map(Number);
+            }
+        } else {
+            parsedParams = parameters;
+        }
 
         // Call the function with the parsed parameters
         const result = await functions[functionName].execute(parsedParams);
@@ -71,7 +80,6 @@ app.post('/execute-function', async (req, res) => {
         res.status(500).json({ error: 'Function execution failed', details: err.message });
     }
 });
-
 
 // Example to interact with OpenAI API and get function descriptions
 app.post('/openai-function-call', async (req, res) => {

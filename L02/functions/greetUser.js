@@ -1,4 +1,5 @@
-const execute = async ({ name }) => {
+const execute = async (input) => {
+    const name = typeof input === 'string' ? input : input.name;
     return { greeting: `Hello, ${name}!` };
 };
 
