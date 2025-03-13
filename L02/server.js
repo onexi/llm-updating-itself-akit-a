@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import { OpenAI} from 'openai';
@@ -55,14 +58,20 @@ app.post('/execute-function', async (req, res) => {
     }
 
     try {
-        // Call the function
-        const result = await functions[functionName].execute(...Object.values(parameters));
+        // Parse parameters if they are sent as a string
+        const parsedParams = typeof parameters === 'string' 
+            ? JSON.parse(parameters) 
+            : parameters;
+
+        // Call the function with the parsed parameters
+        const result = await functions[functionName].execute(parsedParams);
         console.log(`result: ${JSON.stringify(result)}`);
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: 'Function execution failed', details: err.message });
     }
 });
+
 
 // Example to interact with OpenAI API and get function descriptions
 app.post('/openai-function-call', async (req, res) => {

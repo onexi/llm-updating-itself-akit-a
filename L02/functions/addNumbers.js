@@ -1,4 +1,4 @@
-const execute = async (num1, num2) => {
+const execute = async ({ num1, num2 }) => {
     return { result: num1 + num2 };
 };
 

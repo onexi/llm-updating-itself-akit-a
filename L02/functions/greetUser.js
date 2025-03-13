@@ -1,4 +1,4 @@
-const execute = async (name) => {
+const execute = async ({ name }) => {
     return { greeting: `Hello, ${name}!` };
 };
 
