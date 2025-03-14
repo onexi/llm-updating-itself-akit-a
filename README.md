@@ -11,7 +11,7 @@ Call Function from LLM
 3. Utilization of the generated functions by GPT
 
 ## Examples of prompts that are easy to respond to
-This program handles requests such as  "Create a function that does the following..." quite easily. However, while this program could create a function that divides two numbers, it was difficult to create a function that abstracts 9/2.
+This program handles requests such as  "Create a function that does the following..." quite easily. However, while this program could create a function that divides two numbers, it was difficult to create a function that abstracts "Divide 9 by 2".
 - Numerical calculations: "Create a function that multiplies two numbers."
 - Text processing: "Generate a function that reverses a string."
 - Jokes: "Write a function that generates excuses for being late to work, rated by believability."
