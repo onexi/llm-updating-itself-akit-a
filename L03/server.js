@@ -217,3 +217,20 @@ app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
 
+// 既存のコードの後に追加
+app.post('/api/get-functions', async (req, res) => {
+    try {
+      const functions = await getFunctions();
+      res.json({ 
+        functions: Object.keys(functions),
+        state: state 
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: 'Failed to get functions',
+        details: error.message 
+      });
+    }
+  });
+  
+

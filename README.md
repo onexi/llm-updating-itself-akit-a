@@ -9,6 +9,7 @@ Call Function from LLM
 1. Automatic generation of new functions based on user input
 2. Saving the generated functions to a file and dynamically loading them
 3. Utilization of the generated functions by GPT
+4. List the existing functions in the function section of index.html. Update it each time a function is added.
 
 ## Examples of prompts that are easy to respond to
 This program handles requests such as  "Create a function that does the following..." quite easily. However, while this program could create a function that divides two numbers, it was difficult to create a function that abstracts "Divide 9 by 2".

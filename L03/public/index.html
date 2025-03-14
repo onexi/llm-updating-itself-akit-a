@@ -178,6 +178,10 @@
         console.log(`Updated state:: ${JSON.stringify(state)}`);
         console.log(`write to div: ${JSON.stringify(res.message)}`);
         write_to_div(route, res.message);
+
+        if (route.includes('api/openai-call') || route.includes('api/get-functions')) {
+          await updateFunctionList();
+        }
       }
     </script>
   </head>
@@ -304,7 +308,7 @@
         <label for="response">JSON Output:</label>
         <div id="json_output"class="border p-3" style="height: 200px; overflow:auto;"></div>
         <label for="response">Functions:</label>
-        <div id="functions" class="border p-3" style="height: 200px; overflow:auto;"></div>
+        <div id="functions" class="border p-3" style="height: 200px; overflow:auto;"><ul id="function-list"></ul></div>
       </div>
     </div>
   </body>
@@ -324,5 +328,39 @@
     document.addEventListener("DOMContentLoaded", function () {
       toggleAssistantButtons(); // Initialize with ChatGPT as the default
     });
+    
+      async function updateFunctionList() {
+        try {
+          const response = await fetch('/api/get-functions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(state)
+          });
+          
+          const data = await response.json();
+          const functionList = document.getElementById('function-list');
+          
+
+          functionList.innerHTML = '';
+          
+          // add new function
+          data.functions.forEach(funcName => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.textContent = funcName;
+            functionList.appendChild(li);
+          });
+          
+        } catch (error) {
+          console.error('Failed to update function list:', error);
+        }
+      }
+    
+      document.addEventListener('DOMContentLoaded', function() {
+        updateFunctionList();
+      });
+    
   </script>
 </html>
