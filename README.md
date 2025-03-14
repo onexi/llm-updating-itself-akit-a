@@ -17,7 +17,9 @@ This program handles requests such as  "Create a function that does the followin
 - Jokes: "Write a function that generates excuses for being late to work, rated by believability."
 
 ## Usage
-1. Start the server: node server.js
-2. Access http://localhost:3000 in your browser.
-3. Enter a function generation request in the user message field.
-4. Click the "Run Agent" button to generate a new function.
+1. Run "npm install"
+2. Create a .env file in the root of L03 with your OpenAI API key
+3. Start the server: node server.js
+4. Access http://localhost:3000 in your browser.
+5. Enter a function generation request in the user message field.
+6. Click the "Run Agent" button to generate a new function.
